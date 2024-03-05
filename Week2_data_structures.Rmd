@@ -1,0 +1,519 @@
+---
+title: "Week 2: Data Structures"
+output: html_notebook
+---
+
+# Week 2: Data Structures
+
+Welcome to Week 2! This week, we'll cover the different ways that data is stored in R. We'll start by looking at the individual data points before moving on to collections of data.
+
+In this pre-class activity, you'll implement code to create, store, and loop through data in R.
+
+If you have any questions about the contents of this tutorial, please post them in the `Week 2 Pre-Class Tutorial` thread on Ed.
+
+# Variables
+
+Often times, we want to complete multiple actions on the same data. We can use **variables** to store data values. These variables can be used for any future operations we want to do.
+
+The code below defines the variable `big_number` to take on the value of the numeric `153423483.` You can assign variables by using `<-` or `=`
+
+```{r}
+# These two lines of code do the same thing
+big_number = 153423483
+big_number <- 153423483
+```
+
+When you assign a variable, the environment panel in RStudio will update to include the variable's name and current value. Instead of having to type `153423483` every time we want to work with it, we can complete operations using the `big_number` variable. Compare the output of the following two cells:
+
+```{r}
+153423483 * 4
+```
+
+```{r}
+big_number * 4
+```
+
+We can also reassign the value of variables using `=` and `->`. Run the code below to set the value of `big_number` to 12413. In the environment pane, the value of `big_number` will change to reflect your edits.
+
+```{r}
+big_number = 12413
+```
+
+## Practice Problem 1
+
+Create a variable called `really_big_number` that is equal to the value of `big_number` times 6.
+
+```{r}
+... = ...
+```
+
+# Conditional Statements
+
+Conditional statements use logical values to determine what action(s) should be execute. Recall that logicals take on either a `True` or `False` values. We can use `if` statements to tell R to only run certain chunks of code if the condition (as indicated by a logical) is met.
+
+The general structure of an if statement is shown below:
+
+```{r}
+# CONDITION will evaluate to a logical, equal to TRUE or FALSE
+# If CONDITION == TRUE, R will run the STATEMENT that's contained inside the brackets {}
+# If CONDITION == FALSE, R will skip the STATEMENT
+
+if (CONDITION) {
+  STATEMENT
+}
+```
+
+For example, in the code below, the if statement will check if `x` is greater than 10. Since x is 12, the condition is `TRUE` and R will run the statement that tells it to print "x is greater than 10"
+
+```{r}
+x = 12
+
+if (x > 10) { 
+  print("x is greater than 10")
+} 
+```
+
+When we set `x = 6`, the condition is `FALSE` so R skips the code that's contained in the brackets,
+
+```{r}
+x = 6
+
+if (x > 10) { 
+  print("x is greater than 10")
+} 
+```
+
+If we want R to have a separate action when the condition is false, we introduce an `else` statement.
+
+In the code below, `x>6` is `FALSE` so the code inside the first set of brackets is not run. Instead, the code inside the second set of brackets (following the `else` is run.
+
+```{r}
+x = 6
+
+if (x > 10) { 
+  print("x is greater than 10")
+} else {
+  print("x is less than 10")
+}
+```
+
+If we want to check for multiple conditions, we can use `else if` statements. This step is only run if the condition associated with the `if` statement is `FALSE`.
+
+For example, in the code below the first condition is `FALSE` so the code inside the first set of brackets doesn't run. Next, R evaluates the condition listed after the `else if` statement. This condition is `TRUE` so the code inside the second brackets runs. The else statement is never reached, so the code inside the third set of brackets doesn't run.
+
+```{r}
+x = 6
+
+if (x > 10) { 
+  print("x is greater than 10")
+} else if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is less than or equal to 5")
+}
+```
+
+We can chain `else if` statements, if there are more conditions that we want to have separate actions for.
+
+```{r}
+x = 3
+
+if (x > 10) { 
+  print("x is greater than 10")
+} else if (x > 5) {
+  print("x is greater than 5")
+} else if (x > 2) {
+  print("x is greater than 2")
+} else {
+  print("x is less than or equal to 2")
+}
+```
+
+## Practice Problem 2
+
+Complete the code below to write a series of conditional statements that compares the values of `x` and `y`. Try changing the values of `x` and `y` to check that your code works as expected
+
+```{r}
+x = 24
+y = 10
+
+if (x > y) {
+  print("x is ... than the value of y")
+} else if (...) {
+  print("x is less than the value of y")
+} else {
+  print("x is equal to y")
+}
+```
+
+# Vectors
+
+**Vectors** are lists of data points that are all the same type. You can create a vector by using the `c()` function.
+
+```{r}
+c(1, 6, 7, 31, 2)
+```
+
+WARNING: When you try to mix data types in a new vector, R will cast all values in the vector as strings. Pay close attention to the data types that you put into a vector
+
+```{r}
+c(1, 6, "7", 2, F)
+```
+
+If you're interested in making a sequence of numbers, the `:` operator is a shortcut to making an series of ascending numbers. Put the first value of the sequence to the left of the `:` and the last value to the right of the `:.` The code below create a vector of numbers from 5 to 100.
+
+```{r}
+5:100
+```
+
+## Practice Problem 3
+
+Make a vector called `fruits`, which contains 3 fruit names stored as characters
+
+```{r}
+fruits = c(..., ..., ...)
+```
+
+## Accessing Items
+
+Each item in a vector can be located using its **index**. The index is the numeric value that corresponds to the item's position in the vector. The first item in the vector is at index 1, the second item is at index 2, etc.
+
+We can use square brackets `[]` after a vector to indicate which items you'd like to select using their indices.
+
+Suppose we had the following vector `numbers`
+
+```{r}
+numbers = 4:24 
+numbers
+```
+
+To access the 6th item of this vector, we can use the following code
+
+```{r}
+numbers[6]
+```
+
+You can also index a list using a vector of indices. To access the 4th, 8th, and 19th item of this vector, we can use the following code
+
+```{r}
+numbers[c(4, 8, 19)]
+```
+
+We can also use vector indexing to alter the values of specific items in the vector. The code below replaces the *second* value of `numbers` with the value `1043`
+
+```{r}
+numbers[2] = 1043
+numbers
+```
+
+## Practice Problem 4
+
+In the cell below, write code to replace the 3rd and 8th item of `numbers` with the value `32`
+
+```{r}
+numbers[...] = ...
+numbers
+```
+
+## Extending Vectors
+
+We can also use `c()` to add data to an existing vector. Suppose we wanted to keep create a vector to keep track of the number of weekly flu cases observed in a large classroom.
+
+We can start by creating an empty vector `n_flu_cases` that we'll gradually add values to.
+
+```{r}
+n_flu_cases = c()
+```
+
+The first week, we observe 5 cases. Let's update \``` n_flu_cases` `` so the first value is equal to 5.
+
+```{r}
+# Sets n_flu_cases to a vector that contains the existing values of n_flu_cases with a 5 at the end. 
+n_flu_cases = c(n_flu_cases, 5)
+n_flu_cases
+```
+
+Two weeks pass, during which we observed 8 and 6 cases. We can add both data points to the vector in one line of code
+
+```{r}
+# Sets n_flu_cases to a vector that appends the values 8 and 6 to the end of the existing n_flu_cases vector.
+n_flu_cases = c(n_flu_cases, c(8, 6))
+n_flu_cases
+```
+
+We tracked down a database that we used to retroactively measure 2 flu cases from the week before we started tracking. We can add this to the start of the `n_flu_cases` vector by putting `2` before `n_flu_cases` when we use `c()`.
+
+```{r}
+# Sets n_flu_cases to a vector that adds the value 2 to the start of the existing n_flu_cases vector.
+n_flu_cases = c(2, n_flu_cases)
+n_flu_cases
+```
+
+## Vector Operations
+
+Similar to how we were able to operate on individual data points, we can work with vectors to modify a collection of data.
+
+In the code below, we multiply 20 and subtract 94 from each number in the vector `nums`
+
+```{r}
+nums = c(14, 362, 26, 2)
+nums * 20 - 94
+```
+
+We can also operate on vectors of characters. In the cells below, we append the character "Trial Number:" to a vector of characters.
+
+```{r}
+# Create a vector of numbers between 1 and 10, convert them to characters
+num_characters = as.character(1:10)
+paste("Trial Number:", num_characters)
+```
+
+We can also summarize the contents of a vector using functions like `min`, `max`, `mean`, `median`, and `length`. Read the code provided below and guess what the output will be. Run the cells to confirm.
+
+```{r}
+more_numbers = c(13, 6, 123, 23, 6)
+paste("Minimum:", min(more_numbers))
+paste("Maximum:", max(more_numbers))
+paste("Mean:", mean(more_numbers))
+paste("Median:", median(more_numbers))
+paste("Length:", length(more_numbers))
+```
+
+The `summary` function produces a quick description of the distribution of values in the vector.
+
+```{r}
+summary(more_numbers)
+```
+
+The `unique` function extracts all unique values in a vector
+
+```{r}
+unique(more_numbers)
+```
+
+The `table` function can be used to count the number of times each value appears in the vector
+
+```{r}
+table(more_numbers)
+```
+
+## Practice Problem 5
+
+Subtract the mean of the vector `even_more_numbers` from each value of `even_more_numbers`.
+
+```{r}
+even_more_numbers = c(1, 6, 2, 93, 241, 315, 23)
+... - ...
+```
+
+# Iteration and For Loops
+
+In a lot of research scenarios, we have many repeated tasks or calculations.
+
+For example, we wanted to categorize ages into different age categories. We can use conditional statements to assign the correct category for a given numeric age.
+
+```{r}
+age = 36
+if (age < 18) {
+  age_category = "<18 years"
+} else if (age < 64) {
+  age_category = "18-64 years"
+} else {
+  age_category = ">=65 years"
+}
+age_category
+```
+
+If there were many participants in our study, we may have to repeat this step multiple times.
+
+```{r}
+ages = c(25, 8, 35, 87, 34, 15, 73, 34, 53)
+
+age_categories = c()
+  
+# Categorize the first age
+age = ages[1]
+# Match age to the correct category
+if (age < 18) {
+  new_age_category = "<18 years"
+} else if (age < 64) {
+  new_age_category = "18-64 years"
+} else {
+  new_age_category = ">=65 years"
+}
+
+# Add first age category to the vector
+age_categories = c(age_categories, new_age_category)
+
+# Categorize the second age
+age = ages[2]
+# Match age to the correct category
+if (age < 18) {
+  new_age_category = "<18 years"
+} else if (age < 64) {
+  new_age_category = "18-64 years"
+} else {
+  new_age_category = ">=65 years"
+}
+
+# Add second age category to the vector
+age_categories = c(age_categories, new_age_category)
+
+age_categories
+
+# etc, etc ... This would have to be repeated for each item in ages
+```
+
+This process could lead to really long, repetitive code. However, we can note that for each step, much of the code is exactly the same. The only thing that we change is the value of `age`.
+
+In scenarios like this, we can use `for` loops to condense our code.
+
+For loops follow the structure below, where the code inside the parentheses is repeated for each value of `VECTOR_OF_VALUES`. On each *iteration* of the for loop, the `VARIABLE_NAME` takes on a new value contained in `VECTOR_OF_VALUES` and any mention of `VARIABLE_NAME.`
+
+```{r}
+for (VARIABLE_NAME in VECTOR_OF_VALUES) {
+  CODE_TO_BE_REPEATED
+}
+```
+
+Run the code below, and make sure you understand what happens at each step of the for loop.
+
+```{r}
+for (i in 1:3) {
+  print(paste("The value of i is", i))
+  print(paste("i * 5 =", i * 5))
+}
+```
+
+To simplify our code that categorized ages, we can use for loops as follows:
+
+```{r}
+ages = c(25, 8, 35, 87, 34, 15, 73, 34, 53)
+
+age_categories = c()
+  
+# Categorize the first age
+for (age in ages) {
+  # Match age to the correct category
+  if (age < 18) {
+    new_age_category = "<18 years"
+  } else if (age < 64) {
+    new_age_category = "18-64 years"
+  } else {
+    new_age_category = ">=65 years"
+  }
+  
+  # Add age category to the vector
+  age_categories = c(age_categories, new_age_category)
+}
+
+age_categories
+```
+
+## Practice Problem 6
+
+Complete the code below to categorize the stage of chronic kidney disease (CKD) based on estimated glomerular filtration rate (eGFR) values in `egfr_values`
+
+eGRF values less than 15 correspond to Stage 5 CKD, values between 15 and 29 correspond to Stage 4, values between 30-44 correspond to Stage 3B, and values above 45 correspond to Stages 1-3A.
+
+```{r}
+egfr_values = c(24, 61, 8, 36, 98, 78, 47, 42, 20)
+ckd_statuses = c()
+
+for (... in ...){
+  # Convert one egfr value to CKD stage
+  if (... < 15) {
+    stage = "5"
+  } else if (... < 30){
+    stage = "4"
+  } else if (... < 45){
+    stage = "3b"
+  } else {
+    stage = "1 to 3a"
+  }
+  # Add CKD stage to vector
+  ckd_statuses = c(..., ...)
+}
+
+ckd_statuses
+```
+
+# Data Frames/Tables
+
+Sometimes, we have multiple pieces of corresponding data. Instead of storing each variable as a separate vector, we can use data frames. Data frames are composed of columns and rows. Typically, each row represents a single unit (ex: a person, county, or state) and each column represents a characteristics (ex: age, race, disease status).
+
+The code below creates a data frame called `study_cohort`, where each row contains data from a single study participant and each column contains all participant values of a single characteristics. We create the data frame using `data.frame()`, and define each column within the parentheses with `COLUMN_NAME = VECTOR_OF_COLUMN_VALUES`
+
+```{r}
+study_cohort = data.frame(person_id = 1:5, 
+                          tr = c(1, 1, 0, 0, 1), 
+                          disease = c(0, 0, 0, 1, 0), 
+                          age = c(19, 26, 56, 53, 12))
+
+study_cohort
+```
+
+## Indexing Tables
+
+Similar to how we used `[]` to select specific values, we can use `[]` to select certain rows, columns, and values in a data frame. Generally, we follow the structure `table_name[row_index, column_index]`
+
+To access a specific row of the table, we use `table_name[row_index, ]`. When we leave the position for `column_index` blank, it assumes that we want to select all columns for that row.
+
+```{r}
+study_cohort[1, ]
+```
+
+We can also use a vector of indices to select multiple rows.
+
+```{r}
+study_cohort[1:3, ]
+```
+
+```{r}
+study_cohort[c(1, 4), ]
+```
+
+Similarly, we can use `table_name[, column_index]` to select specific columns of the data frame.
+
+```{r}
+study_cohort[, 3]
+```
+
+Instead of using the numeric index, we can use the column name. If we pass the column name through a single set of brackets (`table_name["column_name"]`) it returns a table with one column, but if we pass the column name through a double set of brackets (`table_name[["column_name"]]`) it returns a vector
+
+```{r}
+study_cohort["disease"]
+```
+
+```{r}
+study_cohort[["disease"]]
+```
+
+We can also use the `$` operator to select columns by their name, using the format `table_name$column_name`. If your column name has spaces, the name must be contained inside ticks (ex: `` table_name$`column name` ``)
+
+```{r}
+study_cohort$disease
+```
+
+## Practice Problem 7
+
+Calculate the age in months of the participants in `study_cohort` table.
+
+```{r}
+ages_years = ... #Extract the column that contains participant ages in years
+ages_years ... # Use a vector operation to convert ages from years to months. 
+```
+
+# Summary
+
+In this tutorial, you learned about the different ways that data is stored in R. By the end of the week, you should be comfortable distinguishing between the different data types, creating new variables, and working with vectors.
+
+Over the next several weeks, you'll learn how to load existing tables, explore data found in tables, and manipulate data frames!
+
+# Resources
+
+Introduction to Rby Michael Koontz and Ryan Peek [Vectors and Dataframes](https://mikoontz.github.io/data-carpentry-week/lesson_data_frames.html)
+
+Advanced R by Hadley Wickham: [Data Structures](http://adv-r.had.co.nz/Data-structures.html)
+
+Video Tutorials by Lesley Park: [Data Structures](https://canvas.stanford.edu/courses/184485/pages/video-tutorials-data-structures?module_item_id=1713461).
